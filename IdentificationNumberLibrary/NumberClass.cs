@@ -64,7 +64,7 @@ namespace IdentificationNumberLibrary
         public static int GetTownCode(string townName)
         {
             int townCode = 1;
-            string path = @"..\\..\\..\\Roman.cvs";
+            string path = @"../../../Roman.csv";
             string[] readText = File.ReadAllLines(path);
             foreach (string s in readText)
             {
