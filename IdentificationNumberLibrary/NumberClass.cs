@@ -18,7 +18,7 @@ namespace IdentificationNumberLibrary
         /// <param name="residentValue">Является ли резидентом</param>
         /// <param name="townCode">Код города</param>
         /// <returns></returns>
-        public static string GetRomaniaNumber(string surname, string gender, DateTime dateBirthday, bool residentValue, int townCode)
+        public static string GetRomaniaNumber(string surname, string gender, DateTime dateBirthday, bool residentValue, string townName)
         {
             string identificationNumber = "";
             //формирование первой цифры кода
@@ -54,6 +54,33 @@ namespace IdentificationNumberLibrary
                 int value = rnd.Next(7, 10);
                 identificationNumber = identificationNumber + value;
             }
+            //Следующие 2 цифры - последние 2 цифры года рождения
+            string yearString = Convert.ToString(year);
+            identificationNumber = identificationNumber + yearString.Substring(2, 2);
+            //Следующие 2 цифры - месяц рождения
+            int month = dateBirthday.Month;
+            string monthString = Convert.ToString(month);
+            if (month < 10)
+            {
+                monthString = "0" + monthString;
+            }
+            identificationNumber = identificationNumber + monthString;
+            //Следующие 2 цифры - дата рождения
+            int day = dateBirthday.Day;
+            string dayString = Convert.ToString(day);
+            if (day<10)
+            {
+                dayString = "0" + dayString;
+            }
+            identificationNumber = identificationNumber + dayString;
+            //Следующие 2 цифры - код города
+            identificationNumber = identificationNumber + Convert.ToString(GetTownCode(townName));
+            //Следующая цифра - пол человека
+            identificationNumber = identificationNumber + gender;
+            //Следующие 2 цифры - код из таблицы ASCII для первой буквы фамилии человека, введенной латинскими буквами
+            //identificationNumber = identificationNumber + Convert.ToString(Convert.ToInt32(surname.Substring(0,1)));
+            Console.WriteLine(Convert.ToString(Convert.ToInt32(surname.Substring(0, 1))));
+
             return identificationNumber;
         }
         /// <summary>
