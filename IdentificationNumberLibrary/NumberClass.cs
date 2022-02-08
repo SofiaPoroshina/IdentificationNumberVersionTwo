@@ -78,8 +78,8 @@ namespace IdentificationNumberLibrary
             //Следующая цифра - пол человека
             identificationNumber = identificationNumber + gender;
             //Следующие 2 цифры - код из таблицы ASCII для первой буквы фамилии человека, введенной латинскими буквами
-            //identificationNumber = identificationNumber + Convert.ToString(Convert.ToInt32(surname.Substring(0,1)));
-            Console.WriteLine(Convert.ToString(Convert.ToInt32(surname.Substring(0, 1))));
+            int codeASCII = Convert.ToInt32(Convert.ToChar(surname.Substring(0, 1)));
+            identificationNumber = identificationNumber + codeASCII.ToString();
 
             return identificationNumber;
         }
